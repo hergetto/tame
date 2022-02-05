@@ -1,7 +1,4 @@
 defmodule Tame do
-  @moduledoc """
-  Documentation for `Tame`.
-  """
   alias Phoenix.HTML.Tag
 
   def meta_tags(attribute_list) do
