@@ -2,17 +2,13 @@ defmodule Tame do
   @moduledoc """
   Documentation for `Tame`.
   """
+  alias Phoenix.HTML.Tag
 
-  @doc """
-  Hello world.
+  def meta_tags(attribute_list) do
+    Enum.map(attribute_list, fn attribute -> attribute |> meta_tag end)
+  end
 
-  ## Examples
-
-      iex> Tame.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def meta_tag(attributes) do
+    Tag.tag(:meta, Enum.into(attributes, []))
   end
 end
