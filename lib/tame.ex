@@ -1,11 +1,27 @@
 defmodule Tame do
-  alias Phoenix.HTML.Tag
+  use Supervisor
+  alias Tame.MetaTags
 
-  def meta_tags(attribute_list) do
-    Enum.map(attribute_list, fn attribute -> attribute |> meta_tag end)
-  end
+    def start_link(_opts) do
+      Supervisor.start_link(__MODULE__, :ok)
+    end
 
-  def meta_tag(attributes) do
-    Tag.tag(:meta, Enum.into(attributes, []))
-  end
+    # def start_meta_tags_generator(attribute_list) do
+    #   spec = { MetaTags, {attribute_list} }
+    #   Supervisor.start_child(__MODULE__, spec)
+    # end
+
+    # def start_supervisor(attribute_list) do
+    #   case start_meta_tags_generator(attribute_list) do
+    #     {:ok, pid} -> pid |> GenServer.call(:meta_tags)
+    #     {:error, error} -> IO.inspect(error)
+    #   end
+    # end
+
+    @impl true
+    def init(:ok) do
+      children = [MetaTags]
+      Supervisor.init(children, strategy: :one_for_one)
+    end
+
 end
