@@ -17,8 +17,6 @@ defmodule Tame.MetaTags do
 
   @impl true
   def handle_call({:meta_tags, stuff}, _from, state) do
-      # meta_tags = meta_tags(state)
-      # IO.inspect(stuff)
       {:reply, stuff, state}
   end
 
